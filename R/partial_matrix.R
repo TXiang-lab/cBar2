@@ -454,7 +454,7 @@ cat("For breed 1......\n")
 H_Ainv_Sire=makeHA_partial_cpp(A_Sire, G_Sire, n_pure,n_cross, 
 					 IND_geno,pos_A11,pos_A22,
 					 pos_geno, pos_A,pos_H22,
-					direct=TRUE,inverse=FALSE,omega=0.05)$H_A
+					direct=TRUE,inverse=FALSE,omega=0.05)$H
 
 
 IND_Sire=IND_Additive
@@ -483,7 +483,7 @@ n_cross=sum(real_geno%in%ind_cross_num)
 H_Ainv_Dam=makeHA_partial_cpp(A_Dam, G_Dam, n_pure,n_cross, 
 					 IND_geno,pos_A11,pos_A22,
 					 pos_geno, pos_A,pos_H22,
-					direct=TRUE,inverse=FALSE,omega=0.05)$H_A
+					direct=TRUE,inverse=FALSE,omega=0.05)$H
 					
 IND_Dam=IND_Additive							
 					
