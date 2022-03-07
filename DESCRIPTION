@@ -2,7 +2,7 @@ Package: cBar2
 Type: Package
 Title: blup-Associated Data Cleaner
 Version: 1.0.1
-Date: 2021-11-05
+Date: 2022-03-05
 Authors@R: c(person("Quanshun", "Mei",
     role=c("aut", "cre"),
     email="hzau_qsmei@163.com"),
