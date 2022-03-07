@@ -18,11 +18,10 @@ By applying this package, user can complete  the genetic evaluation with  three 
 install.packages(c("Rcpp", "RcppArmadillo","data.table","bigmemory"))
 ```
 
-For installing package blupADC, you can also view this site(https://github.com/TXiang-lab/blupADC).
-
 ```R
 devtools::install_github("TXiang-lab/blupADC")
 ```
+If you can't install blupADC , you can also view this site to get tips(https://github.com/TXiang-lab/blupADC).
 
 **👉 Note: In the analysis of DMU  and BLUPF90 , we recommend you to use package blupADC, it's super easy and effective !!!** 
 
