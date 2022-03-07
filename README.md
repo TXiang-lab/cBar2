@@ -73,6 +73,7 @@ Ainv_partial=makeAinv_partial(ped,
 ```
 
 #### Feature 3. Genomic partial relationship matrix construction 
+Note: need to perform allele tracing in advance 
 
 ``` R
 library(cBar2)
@@ -90,7 +91,7 @@ Ginv_parital=makeGAinv_partial(ped,
 ```
 
 #### Feature 4. Single-step genomic partial relationship matrix construction 
-
+Note: need to perform allele tracing in advance 
 ``` R
 library(cBar2)
 H_parital=makeHA_partial(ped,
