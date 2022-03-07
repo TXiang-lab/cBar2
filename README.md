@@ -58,18 +58,19 @@ library(cBar2)
 offspring_boa=allele_tracing(input_pedigree=ped,
                              hap_win=50,
                              cpu_cores=16,
-				             haplotype_hap,
+			     haplotype_hap,
                              haplotype_map,
-                             haplotype_sample
-						     )
+                             haplotype_sample)
 ```
 
 #### Feature 2. Pedigree partial relationship matrix construction 
 
 ``` R
 library(cBar2)
-A_partial=makeA_partial(ped,output_matrix_type="col_three")
-Ainv_partial=makeAinv_partial(ped,output_matrix_type="col_three")                      
+A_partial=makeA_partial(ped,
+			output_matrix_type="col_three")
+Ainv_partial=makeAinv_partial(ped,
+			output_matrix_type="col_three")                      
 ```
 
 #### Feature 3. Genomic partial relationship matrix construction 
@@ -80,12 +81,13 @@ G_parital=makeGA_partial(ped,
                          offspring_boa,#obtained by allele tracing function 
                          haplotype_hap,
                          haplotype_sample,
-						 output_matrix_type="col_three")
+			 output_matrix_type="col_three")
+			 
 Ginv_parital=makeGAinv_partial(ped,
                                offspring_boa, #obtained by allele tracing function 
                                haplotype_hap,
                                haplotype_sample,
-						       output_matrix_type="col_three")
+			       output_matrix_type="col_three")
 ```
 
 #### Feature 4. Single-step genomic partial relationship matrix construction 
@@ -96,12 +98,12 @@ H_parital=makeHA_partial(ped,
                          offspring_boa,#obtained by allele tracing function 
                          haplotype_hap,
                          haplotype_sample,
-						 output_matrix_type="col_three")
+			 output_matrix_type="col_three")
 Hinv_parital=makeHAinv_partial(ped,
                                offspring_boa, #obtained by allele tracing function 
                                haplotype_hap,
                                haplotype_sample,
-						       output_matrix_type="col_three")
+			       output_matrix_type="col_three")
 ```
 
-1
+
