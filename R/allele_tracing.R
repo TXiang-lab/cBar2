@@ -4,7 +4,7 @@ allele_tracing<-function(input_pedigree=NULL,
 						 haplotype_hap=NULL,
 						 haplotype_map=NULL,
 						 haplotype_sample=NULL, #can be obtained by blupADC directly
-						 trace_direction="backward",
+						 trace_direction="backward"
 						 ){
 
 ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
