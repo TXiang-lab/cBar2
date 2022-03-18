@@ -1,5 +1,5 @@
 makeA_partial<-function(input_pedigree,exclude_missing_parents=TRUE,output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
 
 cat("Please make sure all animals in the pedigree have breed record!  \n") #所有个体均出现在第一列
 Pedigree=data.frame(input_pedigree[,1:3],stringsAsFactors=F)
@@ -48,7 +48,7 @@ Breed=rbind(Breed,breed_missing)
 
 }
 
-Pedigree=blupADC::trace_pedigree(Pedigree,display_message=F)
+Pedigree=blupADC::trace_pedigree(display_message=F,trace_direction=trace_direction,Pedigree)
 
 error_id=do.call(c,Pedigree$error_id_set)
 Pedigree=Pedigree$rename_ped
@@ -165,7 +165,7 @@ Breed=rbind(Breed,breed_missing)
 
 }
 
-Pedigree=blupADC::trace_pedigree(Pedigree,display_message=F)
+Pedigree=blupADC::trace_pedigree(display_message=F,trace_direction=trace_direction,Pedigree)
 
 error_id=do.call(c,Pedigree$error_id_set)
 Pedigree=Pedigree$rename_ped
@@ -257,7 +257,7 @@ ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
 ind_breed2=input_pedigree[input_pedigree[,4]==2,1]
 ind_cross=input_pedigree[input_pedigree[,4]==0,1]
 
-ped=trace_pedigree(input_pedigree[,1:3],display_message=F)$ped[,1:3]
+ped=trace_pedigree(display_message=F,trace_direction=trace_direction,input_pedigree[,1:3])$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
@@ -391,7 +391,7 @@ ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
 ind_breed2=input_pedigree[input_pedigree[,4]==2,1]
 ind_cross=input_pedigree[input_pedigree[,4]==0,1]
 
-ped=trace_pedigree(input_pedigree[,1:3],display_message=F)$ped[,1:3]
+ped=trace_pedigree(display_message=F,trace_direction=trace_direction,input_pedigree[,1:3])$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
@@ -517,14 +517,14 @@ if("col_three" %in% output_matrix_type&IND_rename==FALSE){
 if(NA%in%as.numeric(input_pedigree[,1])){stop("Provided pedigree is not numeric format, please set IND_rename=TRUE for outputing col_three format matrix!")}
 }
 
-rename_ped=trace_pedigree(input_pedigree[,1:3],display_message=F)$rename_ped[,c(1,3,4,5)]
+rename_ped=trace_pedigree(display_message=F,trace_direction=trace_direction,input_pedigree[,1:3])$rename_ped[,c(1,3,4,5)]
 
 #get the seperated haplotype data 
 ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
 ind_breed2=input_pedigree[input_pedigree[,4]==2,1]
 ind_cross=input_pedigree[input_pedigree[,4]==0,1]
 
-ped=trace_pedigree(input_pedigree[,1:3],display_message=F)$ped[,1:3]
+ped=trace_pedigree(display_message=F,trace_direction=trace_direction,input_pedigree[,1:3])$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
@@ -594,14 +594,14 @@ if("col_three" %in% output_matrix_type&IND_rename==FALSE){
 if(NA%in%as.numeric(input_pedigree[,1])){stop("Provided pedigree is not numeric format, please set IND_rename=TRUE for outputing col_three format matrix!")}
 }
 
-rename_ped=trace_pedigree(input_pedigree[,1:3],display_message=F)$rename_ped[,c(1,3,4,5)]
+rename_ped=trace_pedigree(display_message=F,trace_direction=trace_direction,input_pedigree[,1:3])$rename_ped[,c(1,3,4,5)]
 
 #get the seperated haplotype data 
 ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
 ind_breed2=input_pedigree[input_pedigree[,4]==2,1]
 ind_cross=input_pedigree[input_pedigree[,4]==0,1]
 
-ped=trace_pedigree(input_pedigree[,1:3],display_message=F)$ped[,1:3]
+ped=trace_pedigree(display_message=F,trace_direction=trace_direction,input_pedigree[,1:3])$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
