@@ -116,7 +116,7 @@ return(list(Breed1_A=Breed1,Breed1_A_three=Breed1_three,Breed2_A=Breed2,Breed2_A
 
 
 makeAinv_partial<-function(input_pedigree,exclude_missing_parents=TRUE,output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
 
 cat("Please make sure all animals in the pedigree have breed record!  \n") #所有个体均出现在第一列
 Pedigree=data.frame(input_pedigree[,1:3],stringsAsFactors=F)
@@ -239,7 +239,7 @@ return(list(Breed1_Ainv=Breed1_Ainv,Breed1_Ainv_three=Breed1_inv_three,Breed2_Ai
 makeHAinv_partial<-function(input_pedigree,offspring_boa,
 						 haplotype_hap,haplotype_sample,
 						 output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
 
 
 if("col_three" %in% output_matrix_type&IND_rename==FALSE){
@@ -373,7 +373,7 @@ return(list(Breed1_H_Ainv=H_Ainv_Sire,Breed1_H_Ainv_three=Breed1_inv_three,Breed
 makeHA_partial<-function(input_pedigree,offspring_boa,
 						 haplotype_hap,haplotype_sample,
 						 output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
 
 
 if("col_three" %in% output_matrix_type&IND_rename==FALSE){
@@ -510,7 +510,7 @@ return(list(Breed1_H_A=H_Ainv_Sire,Breed1_H_A_three=Breed1_inv_three,Breed2_H_A=
 makeGA_partial<-function(input_pedigree,offspring_boa,
 						 haplotype_hap,haplotype_sample,
 						 output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
 
 
 if("col_three" %in% output_matrix_type&IND_rename==FALSE){
@@ -587,7 +587,7 @@ return(list(Breed1_G_A=G_Sire,Breed1_G_A_three=Breed1_inv_three,Breed2_G_A=G_Dam
 makeGAinv_partial<-function(input_pedigree,offspring_boa,
 						 haplotype_hap,haplotype_sample,
 						 output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
 
 
 if("col_three" %in% output_matrix_type&IND_rename==FALSE){
