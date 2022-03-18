@@ -3,7 +3,8 @@ allele_tracing<-function(input_pedigree=NULL,
 						 cpu_cores=1,					
 						 haplotype_hap=NULL,
 						 haplotype_map=NULL,
-						 haplotype_sample=NULL #can be obtained by blupADC directly
+						 haplotype_sample=NULL, #can be obtained by blupADC directly
+						 trace_direction="backward",
 						 ){
 
 ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
@@ -23,7 +24,7 @@ ind_breed1=haplotype_sample[haplotype_sample%in%ind_breed1]
 ind_breed2=haplotype_sample[haplotype_sample%in%ind_breed2]
 
 
-ped=trace_pedigree(input_pedigree[,1:3])$ped[,1:3]
+ped=trace_pedigree(input_pedigree[,1:3],trace_direction=trace_direction)$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
