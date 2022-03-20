@@ -380,7 +380,7 @@ if("col_three" %in% output_matrix_type&IND_rename==FALSE){
 if(NA%in%as.numeric(input_pedigree[,1])){stop("Provided pedigree is not numeric format, please set IND_rename=TRUE for outputing col_three format matrix!")}
 }
 
-A=makeA_partial(input_pedigree,IND_rename=IND_rename)
+A=makeA_partial(input_pedigree,IND_rename=IND_rename,trace_direction=trace_direction)
 A_Sire=A[[1]]
 A_Dam=A[[3]]
 rename_ped=A$rename_ped
