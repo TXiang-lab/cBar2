@@ -12,6 +12,20 @@ arma::mat allele_tracing_cpp(arma::mat & sire_hap,arma::mat & dam_hap,arma::mat 
 int snp_size=cross_hap.n_rows,ind1_size=Father_cross_ped.nrow(),ind2_size=Mother_cross_ped.nrow(),ind3_size=Unknow_cross_ped.nrow();
 std::string ind_offspring,ind_sire,ind_dam;
 arma::mat hap_offspring,hap_sire,hap_dam;
+	
+if(Father_cross_ped.ncol()==1){
+	ind1_size=0;
+}
+
+
+if(Mother_cross_ped.ncol()==1){
+	ind2_size=0;
+}
+
+if(Unknow_cross_ped.ncol()==1){
+	ind3_size=0;
+}	
+	
 //arma::mat Father_offspring_status(snp_size,ind1_size*2),Mother_offspring_status(snp_size,ind2_size*2),Unknow_offspring_status(snp_size,ind3_size*2);
 arma::mat offspring_status(snp_size,(ind1_size+ind2_size+ind3_size)*2);
 arma::vec offspring_L,offspring_R,sire_L,sire_R,dam_L,dam_R;
@@ -233,7 +247,7 @@ for(i=0; i < ind3_size; i++){
 	
 
 }
-}
+
 
 arma::uvec pos1,pos2;
 //situation3-final result
@@ -265,6 +279,7 @@ pos2=find(offspring_status(span(pos_start,pos_end),2*i+1+(ind1_size+ind2_size)*2
 }
 
 }
+	}
 
 	return offspring_status;
 }
