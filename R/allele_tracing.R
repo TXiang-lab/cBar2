@@ -48,6 +48,11 @@ chr_pos[i,2]=match(chr_name[i+1],haplotype_map[,1])-1
 }
 chr_pos[nrow(chr_pos),2]=nrow(haplotype_map)
 
+if(nrow(Mother_cross_ped)==0)Mother_cross_ped=as.matrix("0")
+if(nrow(Father_cross_ped)==0)Father_cross_ped=as.matrix("0")
+if(nrow(Unknow_cross_ped)==0)Unknow_cross_ped=as.matrix("0")
+	
+	
 offspring_status=allele_tracing_cpp(sire_hap,dam_hap,cross_hap,chr_pos-1,as.matrix(block_pos)-1,
 			  as.matrix(Father_cross_ped),as.matrix(Mother_cross_ped), as.matrix(Unknow_cross_ped),
 			  ind_breed1,ind_breed2,ind_cross,hap_win=hap_win,cpu_cores=cpu_cores)
