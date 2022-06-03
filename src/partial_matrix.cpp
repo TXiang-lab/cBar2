@@ -4,7 +4,8 @@
 // [[Rcpp::export]]
 List makeA_partial_cpp(arma::mat Pedigree, 
 					   std::vector<std::string> IND_name,  //重命名前的个体号，与Pedigree一一对应
-					   IntegerVector record_pos){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
+					   IntegerVector record_pos,
+		      			   bool full_rank=true){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
 
 
 	int n_ind=Pedigree.n_rows;
@@ -75,14 +76,16 @@ List makeA_partial_cpp(arma::mat Pedigree,
 	 std::vector<std::string>  id1=IND_name;
 	 std::vector<std::string>  id2=IND_name;
 
+
 	arma::vec breed1=Breed_matrix.col(0);
 	arma::vec breed2=Breed_matrix.col(1);
-	
+	if(full_rank==true){  // make sure A1 and A2 are full rank matrices	
 	arma::uvec row_condition1=arma::find(breed1!=0);  //A1矩阵中为零的行
 	arma::uvec row_condition2=arma::find(breed2!=0);  //A2矩阵中为零的行
 	
 	A1=A1.submat(row_condition1,row_condition1);
 	A2=A2.submat(row_condition2,row_condition2);
+	}
 	
 	for(int k=breed1.size()-1;k>-1;k--){
 		if(breed1[k]==0){
@@ -107,7 +110,8 @@ List makeA_partial_cpp(arma::mat Pedigree,
 // [[Rcpp::export]]
 List makeAinv_partial_cpp(arma::mat Pedigree, 
 					   std::vector<std::string> IND_name,  //重命名前的个体号，与Pedigree一一对应
-					   IntegerVector record_pos){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
+					   IntegerVector record_pos,
+			                   bool full_rank=true){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
 
 
 	int n_ind=Pedigree.n_rows;
@@ -192,6 +196,7 @@ List makeAinv_partial_cpp(arma::mat Pedigree,
 	arma::vec breed1=Breed_matrix.col(0);
 	arma::vec breed2=Breed_matrix.col(1);
 
+	if(full_rank==true){  // make sure A1 and A2 are full rank matrices
 	arma::uvec row_condition1=arma::find(breed1!=0);  //A1矩阵中为零的行
 	arma::uvec row_condition2=arma::find(breed2!=0);  //A2矩阵中为零的行
 	
@@ -202,7 +207,8 @@ List makeAinv_partial_cpp(arma::mat Pedigree,
 	D2_inv=D2_inv.submat(row_condition2,row_condition2);
 	T2_inv=T2_inv.submat(row_condition2,row_condition2);
 	A2=A2.submat(row_condition2,row_condition2);
-
+	}
+		
 	for(int k=breed1.size()-1;k>-1;k--){
 		if(breed1[k]==0){
 		id1.erase(id1.begin()+k);		
