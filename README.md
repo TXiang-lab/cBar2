@@ -12,16 +12,12 @@ By applying this package, user can complete  the genetic evaluation with  three 
 
 ### 🙊Installation
 
-`cBar2` links to R packages `Rcpp`, `RcppArmadillo` , `data.table` ,  `bigmemory`  and `blupADC`.  These dependencies should be installed before installing `cBar2`.  
+`cBar2` links to R packages `Rcpp`, `RcppArmadillo` , `data.table` ,  `bigmemory`  .  These dependencies should be installed before installing `cBar2`.  
 
 ```R
-install.packages(c("Rcpp", "RcppArmadillo","data.table","bigmemory"))
+install.packages(c("Rcpp", "RcppArmadillo","data.table","bigmemory","RcppProgress","BH"))
 ```
 
-```R
-devtools::install_github("TXiang-lab/blupADC")
-```
-If you can't install blupADC , you can also view this site to get tips(https://github.com/TXiang-lab/blupADC).
 
 **👉 Note: In the analysis of DMU  and BLUPF90 , we recommend you to use package blupADC, it's super easy and effective !!!** 
 
