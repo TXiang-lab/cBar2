@@ -1,5 +1,7 @@
 makeA_partial<-function(input_pedigree,exclude_missing_parents=TRUE,output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward",
+			full_rank=TRUE #make sure A1 and A2 are full rank matrices 
+		       ){
 
 cat("Please make sure all animals in the pedigree have breed record!  \n") #所有个体均出现在第一列
 Pedigree=data.frame(input_pedigree[,1:3],stringsAsFactors=F)
@@ -67,7 +69,7 @@ record_pos=match(c(sire_record,dam_record),IND_name)
 record_pos=as.numeric(NULL)
 }
 
-ped_result=makeA_partial_cpp(num_ped,IND_name,record_pos-1)
+ped_result=makeA_partial_cpp(num_ped,IND_name,record_pos-1,full_rank)
 
 IND_Breed1=ped_result[[3]]
 IND_Breed2=ped_result[[4]]
@@ -116,7 +118,9 @@ return(list(Breed1_A=Breed1,Breed1_A_three=Breed1_three,Breed2_A=Breed2,Breed2_A
 
 
 makeAinv_partial<-function(input_pedigree,exclude_missing_parents=TRUE,output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward",
+			  full_rank=TRUE #make sure A1 and A2 are full rank matrices 
+			  ){
 
 cat("Please make sure all animals in the pedigree have breed record!  \n") #所有个体均出现在第一列
 Pedigree=data.frame(input_pedigree[,1:3],stringsAsFactors=F)
@@ -185,7 +189,7 @@ record_pos=as.numeric(NULL)
 }
 
 #return(list(num_ped,IND_name,record_pos))
-ped_result=makeAinv_partial_cpp(num_ped,IND_name,record_pos-1)
+ped_result=makeAinv_partial_cpp(num_ped,IND_name,record_pos-1,full_rank)
 
 IND_Breed1=ped_result[[3]]
 IND_Breed2=ped_result[[4]]
