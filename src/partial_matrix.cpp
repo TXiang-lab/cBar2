@@ -4,8 +4,7 @@
 // [[Rcpp::export]]
 List makeA_partial_cpp(arma::mat Pedigree, 
 					   std::vector<std::string> IND_name,  //重命名前的个体号，与Pedigree一一对应
-					   IntegerVector record_pos,
-		      			   bool full_rank=true){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
+					   IntegerVector record_pos,bool full_rank){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
 
 
 	int n_ind=Pedigree.n_rows;
@@ -19,13 +18,12 @@ List makeA_partial_cpp(arma::mat Pedigree,
 	A2.fill(0);
 	Breed_matrix.fill(0);
 
-	
+
 	arma::vec Breed=Pedigree.col(3);
 	arma::vec Animal=Pedigree.col(0);
 	arma::vec Sire=Pedigree.col(1);
 	arma::vec Dam=Pedigree.col(2);
 
-	
 	for(int i=0; i < n_ind; i++){
 		Sire_id=Sire[i];
 		Dam_id=Dam[i];
@@ -79,13 +77,14 @@ List makeA_partial_cpp(arma::mat Pedigree,
 
 	arma::vec breed1=Breed_matrix.col(0);
 	arma::vec breed2=Breed_matrix.col(1);
+	
 	if(full_rank==true){  // make sure A1 and A2 are full rank matrices	
 	arma::uvec row_condition1=arma::find(breed1!=0);  //A1矩阵中为零的行
 	arma::uvec row_condition2=arma::find(breed2!=0);  //A2矩阵中为零的行
 	
 	A1=A1.submat(row_condition1,row_condition1);
 	A2=A2.submat(row_condition2,row_condition2);
-	}
+	
 	
 	for(int k=breed1.size()-1;k>-1;k--){
 		if(breed1[k]==0){
@@ -96,7 +95,7 @@ List makeA_partial_cpp(arma::mat Pedigree,
 		id2.erase(id2.begin()+k);		
 		}		
 	}
-
+	}
 	
 	return List::create(Named("Breed1_A") = A1,
 						Named("Breed2_A") = A2,
@@ -110,8 +109,7 @@ List makeA_partial_cpp(arma::mat Pedigree,
 // [[Rcpp::export]]
 List makeAinv_partial_cpp(arma::mat Pedigree, 
 					   std::vector<std::string> IND_name,  //重命名前的个体号，与Pedigree一一对应
-					   IntegerVector record_pos,
-			                   bool full_rank=true){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
+					   IntegerVector record_pos,bool full_rank){   //前三列为个体号，父亲，母亲，第四列为品种(1,2,未知品种为0)
 
 
 	int n_ind=Pedigree.n_rows;
@@ -196,10 +194,11 @@ List makeAinv_partial_cpp(arma::mat Pedigree,
 	arma::vec breed1=Breed_matrix.col(0);
 	arma::vec breed2=Breed_matrix.col(1);
 
-	if(full_rank==true){  // make sure A1 and A2 are full rank matrices
+
 	arma::uvec row_condition1=arma::find(breed1!=0);  //A1矩阵中为零的行
 	arma::uvec row_condition2=arma::find(breed2!=0);  //A2矩阵中为零的行
 	
+
 	D1_inv=D1_inv.submat(row_condition1,row_condition1);
 	T1_inv=T1_inv.submat(row_condition1,row_condition1);
 	A1=A1.submat(row_condition1,row_condition1);
@@ -207,8 +206,8 @@ List makeAinv_partial_cpp(arma::mat Pedigree,
 	D2_inv=D2_inv.submat(row_condition2,row_condition2);
 	T2_inv=T2_inv.submat(row_condition2,row_condition2);
 	A2=A2.submat(row_condition2,row_condition2);
-	}
-		
+	
+if(full_rank==true){		
 	for(int k=breed1.size()-1;k>-1;k--){
 		if(breed1[k]==0){
 		id1.erase(id1.begin()+k);		
@@ -218,20 +217,39 @@ List makeAinv_partial_cpp(arma::mat Pedigree,
 		id2.erase(id2.begin()+k);		
 		}		
 	}
-
+}	
 	D1_inv.diag()=1/D1_inv.diag();
-	D2_inv.diag()=1/D2_inv.diag();
+	D2_inv.diag()=1/D2_inv.diag();	
 	
-	//return List::create(Named("T1_inv") =T1_inv,
-	//					Named("D1_inv") =D1_inv,
-	//					Named("T2_inv") =T2_inv,
-	//					Named("D2_inv") =D2_inv); 
+//if(full_rank==false){
+//
+//	arma::uvec row_condition11=arma::find(breed1==0);  //A1矩阵中为零的行
+//	arma::uvec row_condition22=arma::find(breed2==0);  //A2矩阵中为零的行
+//	
+//	D1_inv.submat(row_condition11,row_condition11)=arma::mat(row_condition11.size(),row_condition11.size(),fill::zeros);
+//	T1_inv.submat(row_condition11,row_condition11)=arma::mat(row_condition11.size(),row_condition11.size(),fill::zeros);
+//
+//	D2_inv.submat(row_condition22,row_condition22)=arma::mat(row_condition22.size(),row_condition22.size(),fill::zeros);
+//	T2_inv.submat(row_condition22,row_condition22)=arma::mat(row_condition22.size(),row_condition22.size(),fill::zeros);
+//}
 
 
+	arma::mat A1_inv(id1.size(),id1.size(),fill::zeros),A2_inv(id2.size(),id2.size(),fill::zeros);
+
+	if(full_rank==true){  // make sure A1 and A2 are full rank matrices
+	
+	
+	A1_inv=T1_inv.t()*D1_inv*T1_inv;
+	A2_inv=T2_inv.t()*D2_inv*T2_inv;
+	}else{
+		
+	A1_inv.submat(row_condition1,row_condition1)=T1_inv.t()*D1_inv*T1_inv;	
+	A2_inv.submat(row_condition2,row_condition2)=T2_inv.t()*D2_inv*T2_inv;	
+	}
 
 	
-	return List::create(Named("A1_inv") = T1_inv.t()*D1_inv*T1_inv,
-						Named("A2_inv") = T2_inv.t()*D2_inv*T2_inv,
+	return List::create(Named("A1_inv") = A1_inv,
+						Named("A2_inv") = A2_inv,
 						Named("id_Breed1_A")=id1,
 						Named("id_Breed2_A")=id2,
 						Named("A1")=A1,

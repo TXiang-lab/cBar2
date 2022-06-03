@@ -50,7 +50,7 @@ Breed=rbind(Breed,breed_missing)
 
 }
 
-Pedigree=blupADC::trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction)
+Pedigree=trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction)
 
 error_id=do.call(c,Pedigree$error_id_set)
 Pedigree=Pedigree$rename_ped
@@ -169,7 +169,7 @@ Breed=rbind(Breed,breed_missing)
 
 }
 
-Pedigree=blupADC::trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction)
+Pedigree=trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction)
 
 error_id=do.call(c,Pedigree$error_id_set)
 Pedigree=Pedigree$rename_ped
