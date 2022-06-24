@@ -1,6 +1,7 @@
 # cBar2
 Cross breeding analysis with R( two-way cross)
 ### OVERVIEW
+![hex-cBar2 (1)](https://user-images.githubusercontent.com/52848770/175520723-dcf2b3b1-29bd-4106-b08a-0f51a70d83c4.png)
 
 `cBar2` is an useful and powerful tool for handling two-way cross breeding in animal and plant breeding.  In addition, it provides a  powerful function to do allele tracing for this case. 
 
