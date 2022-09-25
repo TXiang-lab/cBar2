@@ -275,7 +275,6 @@ if(!is.null(priority_rename_id)){
 pos_tmp=na.omit(match(priority_rename_id,final_ped[,1]))
 final_ped=rbind(final_ped[pos_tmp,],final_ped[-c(pos_tmp),])
 }
-
 final_ped=cbind(final_ped,1:nrow(final_ped))
 
 
