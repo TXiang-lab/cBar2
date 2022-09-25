@@ -120,6 +120,7 @@ return(list(Breed1_A=Breed1,Breed1_A_three=Breed1_three,Breed2_A=Breed2,Breed2_A
 
 makeAinv_partial<-function(input_pedigree,exclude_missing_parents=TRUE,output_matrix_type="col_all",IND_rename=FALSE,
 						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward",
+			   			priority_rename_id=NULL,
 			  full_rank=TRUE #make sure A1 and A2 are full rank matrices 
 			  ){
 
@@ -170,7 +171,7 @@ Breed=rbind(Breed,breed_missing)
 
 }
 
-Pedigree=trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction)
+Pedigree=trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction,priority_rename_id=priority_rename_id)
 
 error_id=do.call(c,Pedigree$error_id_set)
 Pedigree=Pedigree$rename_ped
@@ -517,21 +518,22 @@ return(list(Breed1_H_A=H_Ainv_Sire,Breed1_H_A_three=Breed1_inv_three,Breed2_H_A=
 makeGA_partial<-function(input_pedigree,offspring_boa,
 						 haplotype_hap,haplotype_sample,
 						 output_matrix_type="col_all",IND_rename=FALSE,
-						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward"){
+						matrix_log_det=FALSE,cpu_cores=1,col_three_threshold=0,trace_direction="backward",
+						priority_rename_id=NULL){
 
 
 if("col_three" %in% output_matrix_type&IND_rename==FALSE){
 if(NA%in%as.numeric(input_pedigree[,1])){stop("Provided pedigree is not numeric format, please set IND_rename=TRUE for outputing col_three format matrix!")}
 }
 
-rename_ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction)$rename_ped[,c(1,3,4,5)]
+rename_ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction,priority_rename_id=priority_rename_id)$rename_ped[,c(1,3,4,5)]
 
 #get the seperated haplotype data 
 ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
 ind_breed2=input_pedigree[input_pedigree[,4]==2,1]
 ind_cross=input_pedigree[input_pedigree[,4]==0,1]
 
-ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction)$ped[,1:3]
+ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction,priority_rename_id=priority_rename_id)$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
@@ -601,14 +603,14 @@ if("col_three" %in% output_matrix_type&IND_rename==FALSE){
 if(NA%in%as.numeric(input_pedigree[,1])){stop("Provided pedigree is not numeric format, please set IND_rename=TRUE for outputing col_three format matrix!")}
 }
 
-rename_ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction)$rename_ped[,c(1,3,4,5)]
+rename_ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction,priority_rename_id=priority_rename_id)$rename_ped[,c(1,3,4,5)]
 
 #get the seperated haplotype data 
 ind_breed1=input_pedigree[input_pedigree[,4]==1,1]
 ind_breed2=input_pedigree[input_pedigree[,4]==2,1]
 ind_cross=input_pedigree[input_pedigree[,4]==0,1]
 
-ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction)$ped[,1:3]
+ped=trace_pedigree(input_pedigree[,1:3],display_message=F,trace_direction=trace_direction,priority_rename_id=priority_rename_id)$ped[,1:3]
 cross_ped=ped[ped[,1]%in%ind_cross,]
 cross_ped=cross_ped[!duplicated(cross_ped[,1]),]
 
