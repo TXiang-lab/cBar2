@@ -23,6 +23,8 @@ n2=sum(dam_missing)	  #母亲缺失的数目
 
 sire_record=NULL
 dam_record=NULL
+breed_missing_sire=NULL 
+breed_missing_dam=NULL
 if((n1+n2)>0){
 cat("Found animals in pedigree only have sire or dam records,these missing records will automatically recoded by software !\n")
 
@@ -36,7 +38,7 @@ Pedigree[sire_missing,2]=sire_record
 breed_missing=data.frame(Id=sire_record,Breed=Breed[sire_missing,2]) #默认父亲与后代的品种一样
 status_crossbreed=(Breed[sire_missing,2]==0)
 breed_missing[status_crossbreed,2]=3-as.numeric(Breed[match(Pedigree[sire_missing,3][status_crossbreed],Breed[,1]),2])
-Breed=rbind(Breed,breed_missing)
+breed_missing_sire=breed_missing
 }
 
 if(n2>0){
@@ -46,9 +48,10 @@ Pedigree[dam_missing,3]=dam_record
 breed_missing=data.frame(Id=dam_record,Breed=Breed[dam_missing,2])
 status_crossbreed=(Breed[dam_missing,2]==0)
 breed_missing[status_crossbreed,2]=3-as.numeric(Breed[match(Pedigree[dam_missing,2][status_crossbreed],Breed[,1]),2])
-Breed=rbind(Breed,breed_missing)
+breed_missing_dam=breed_missing
 }
-
+Breed=rbind(Breed,breed_missing_sire)
+Breed=rbind(Breed,breed_missing_dam)
 }
 
 Pedigree=trace_pedigree(Pedigree,display_message=F,trace_direction=trace_direction,priority_rename_id=priority_rename_id)
