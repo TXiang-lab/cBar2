@@ -7,7 +7,7 @@ Cross breeding analysis with R( two-way cross)
 
 By applying this package, user can complete  the genetic evaluation with  three different types of partial relationship matrix(pedigree, genomic, and single-step partial relationship matrix). 
 
-😊 Good Luck Charlie !   If you have suggestion or question, please contact: [hzau_qsmei@163.com](mailto:hzau_qsmei@163.com) !
+😊 Good Luck Charlie !   If you have suggestion or question, please contact: [quanshun1994@gmail.com](mailto:quanshun1994@gmail.com) !
 
 ## GETTING STARTED
 
